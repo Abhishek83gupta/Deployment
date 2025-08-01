@@ -125,7 +125,10 @@ Setting up the Frontend
 Note : After all Done make change in both Frontend and Backend env variables
 
 VITE_API_URL = "http://localhost:3000"  --->  "http://<your ip-address>:3000"
+```bash
 pm2 restart frontend
-
+```
 CLIENT_URL = "http://localhost:5173"    --->  "http://<your ip-address>:5173"
+```bash
 pm2 restart backend
+```
