@@ -1,7 +1,8 @@
 # DevOps 3-Tier Project Deployment | Virtualisation on AWS EC2
 
 - Launch an EC2 Instance with (All traffic, Anywhere):
-   
+  Note : You can also edit Inbound/Outbound rules further to open specific port.
+
 - Connect your VM using any tools (e.g Mobaxterm)
 
 
