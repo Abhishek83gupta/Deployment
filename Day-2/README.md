@@ -42,11 +42,15 @@
   
   3. Configure environment variables
   ```bash
-  cp .env.example .env.local
-  
-  Note : Change .env variables
-         VITE_API_URL = "http://localhost:3000"  --->  "http://<your ip-address>:3000"
+  cp .env.example .env.local 
   ```
+  OR
+  
+  ```bash
+  vim .env.local 
+  ```
+  Note : Change .env.local variables
+        VITE_API_URL = "http://localhost:3000"  --->  "http://<your ip-address>:3000"  
  
   4. Image creation
   ```bash
@@ -109,11 +113,15 @@
   
   3. Configure environment variables
   ```bash
-  cp .env.example .env.local
-
-  Note : Change .env variables
-        CLIENT_URL = "http://localhost:5173"    --->  "http://<your ip-address>:5173"
+  cp .env.example .env.local 
   ```
+  OR
+  
+  ```bash
+  vim .env.local 
+  ```
+  Note : Change .env.local variables
+        CLIENT_URL = "http://localhost:5173"    --->  "http://<your ip-address>:5173"
  
   4. Image creation 
   ```bash
@@ -140,6 +148,8 @@
 1. Inside docker check which type of OS is running Linux/Ubuntu accordingly use "docker exec -it <id> sh/bash"
 
 2. If your backend not communicating with frontend (e.g CORS), then create network and pass as a flag during container creation 
+
+3. If ip-address not working in browser, Try to to edit secruity group (Inbound rules) add port number accordingly
 
   ```bash
   # Create a new network
