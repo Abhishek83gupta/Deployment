@@ -160,29 +160,29 @@ Create a `Dockerfile` for both the backend and frontend services.
     Create `Backend/Dockerfile` with the following content:
     ```Dockerfile
     # Use an official Node.js runtime as a parent image
-    FROM node:18-alpine
-
-    WORKDIR /app
-    COPY package*.json ./
-    RUN npm install
-    COPY . .
-    EXPOSE 3000
-    CMD ["npm", "start"]
+      FROM node:18-alpine 
+      WORKDIR /app
+      COPY package*.json .
+      RUN npm install 
+      COPY . .
+      COPY .env.local .env
+      EXPOSE 3000
+      CMD ["npm", "start"]
     ```
 
 2.  **Frontend Dockerfile:**
     Create `Frontend/Dockerfile` with the following content:
     ```Dockerfile
     # Use an official Node.js runtime as a parent image
-    FROM node:18-alpine
-
-    WORKDIR /app
-    COPY package*.json ./
-    RUN npm install
-    COPY . .
-    EXPOSE 5173
-    # The --host flag is crucial to expose the app outside the container
-    CMD ["npm", "run", "dev", "--", "--host"]
+    # Use official lightweight Node.js image
+      FROM node:18-alpine
+      WORKDIR /app
+      COPY package*.json .
+      RUN npm install
+      COPY . .
+      EXPOSE 5173
+      COPY .env.local .env
+      CMD ["npm", "run", "dev", "--", "--host"]
     ```
 
 ### Step 6: Build and Run the Containers
