@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  mongodb:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  redis:
+    container_name: redis
+    image: redis:7.0.5-alpine
+    # Use this to allow Redis access from other containers only (not from host or outside)
+    expose:
+      - "6379"
+    # If you want to access Redis from host or outside, use ports instead of expose:
+    # ports:
+    #   - "6379:6379"
+    depends_on:
+      - mongodb
+
+  backend:
+    container_name: backend
+    build: ./Backend
+    env_file: ./Backend/.env.local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - redis
+
+  frontend:
+    container_name: frontend
+    build: ./Frontend
+    env_file: ./Frontend/.env.local
+    ports:
+      - "5173:5173"  
