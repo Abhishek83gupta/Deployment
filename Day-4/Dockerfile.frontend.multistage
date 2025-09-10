@@ -1,0 +1,14 @@
+#stage-1
+FROM node:18-alpine AS frontend-builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm i 
+COPY . .
+
+#stage-2
+FROM node:18-alpine 
+WORKDIR /app
+COPY --from=frontend-builder /app .         
+COPY .env.local .env 
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
