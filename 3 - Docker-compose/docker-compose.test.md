@@ -28,11 +28,11 @@ services:
   web:
     image: nginx:alpine
     ports:
-      - "8080:80"
+      - "80:80"
 ```
 
 -   **`image: nginx:alpine`**: This tells Docker Compose to use the lightweight `alpine` variant of the official Nginx image.
--   **`ports: - "8080:80"`**: This maps port `8080` on your host machine to port `80` inside the Nginx container.
+-   **`ports: - "80:80"`**: This maps port `80` on your host machine to port `80` inside the Nginx container.
 
 ### Step 2: Run the Container
 
@@ -49,11 +49,11 @@ This command will pull the `nginx:alpine` image if it's not already on your syst
 You can now verify that the server is running.
 
 -   **Option 1: Use your web browser**
-    Navigate to `http://localhost:8080`.
+    Navigate to `http://localhost:80`.
 
 -   **Option 2: Use `curl` in your terminal**
     ```bash
-    curl http://localhost:8080
+    curl http://localhost:80
     ```
 
 Both methods should show you the default **"Welcome to nginx!"** page.
