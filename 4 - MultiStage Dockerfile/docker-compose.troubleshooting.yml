@@ -5,6 +5,8 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    networks:
+      - app-network  
 
   redis:
     container_name: redis
@@ -17,6 +19,8 @@ services:
     #   - "6379:6379"
     depends_on:
       - mongodb
+    networks:
+      - app-network  
 
   backend:
     container_name: backend
@@ -27,10 +31,19 @@ services:
     depends_on:
       - mongodb
       - redis
+    networks:
+      - app-network  
 
   frontend:
     container_name: frontend
     build: ./Frontend
     env_file: ./Frontend/.env.local
     ports:
-      - "5173:5173"  
+      - "5173:5173"
+    networks:
+      - app-network
+    depends_on:
+      - backend        
+
+networks:
+  app-network:
