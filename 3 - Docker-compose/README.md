@@ -103,43 +103,32 @@
 
 
 ## Docker-compose commands :-
-docker-compose up -d          : to start all services
-docker-compose up -d --build  : ------------------------- force fully building images again
-docker-compose down           : to stop all services
-docker-compose down --remove  : ------------------------- and remove images too
 
-docker-compose start <id>     : to start all services
-docker-compose stop <id>      : to stop -------------
-docker-compose restart <id>   : to restart ----------
-docker-compose pause <id>     : to pause ------------
-docker-compose unpause <id>   : to unpause ----------
-
-docker-compose images         : to get all image managed by compose file
-docker-compose ps -a          : to get all container -------------------
-docker-compose logs           : to get all logs ------------------------
-docker-compose scale dth=10   : to create 10 container of dth
-docker-compose top            : to get all process managed by containers on compose file
-docker-compose -h             : to get all all commands od docker-compose
+| Command                         | Description                      |
+|---------------------------------|----------------------------------|
+| `docker-compose up -d`         | to start all services            |
+| `docker-compose up -d --build` | to forcefully build images again |
+| `docker-compose down`          | to stop all services             |
+| `docker-compose down --rmi`    | to stop and remove images too    |
+| `docker-compose start`         | to start all services            |
+| `docker-compose stop`          | to stop all services             |
+| `docker-compose restart`       | to restart all services          |
+| `docker-compose logs`          | to get all logs                  |
 
 
-| Command | Description |
-|--------|-------------|
-| `docker-compose up -d` | Start all services in detached mode |
-| `docker-compose up -d --build` | Force rebuild of images and start services |
-| `docker-compose down` | Stop and remove all services, containers, and networks |
-| `docker-compose down --rmi all` | Stop services and **remove images** as well |
-| `docker-compose start` | Start existing containers of all services |
-| `docker-compose start <service>` | Start a specific service |
-| `docker-compose stop` | Stop running containers without removing them |
-| `docker-compose stop <service>` | Stop a specific service |
-| `docker-compose restart` | Restart all services |
-| `docker-compose restart <service>` | Restart a specific service |
-| `docker-compose pause <service>` | Pause a specific service |
-| `docker-compose unpause <service>` | Unpause a paused service |
-| `docker-compose images` | List all images used by the services |
-| `docker-compose ps -a` | List all containers (including stopped ones) |
-| `docker-compose logs` | Show logs for all services |
-| `docker-compose logs <service>` | Show logs for a specific service |
-| `docker-compose scale <service>=<num>` | Scale a service to a specific number of containers (e.g. `dth=10`) |
-| `docker-compose top` | Show processes running inside the containers |
-| `docker-compose -h` | Show help and all available `docker-compose` commands |
+| Command                              | Description                         |
+|--------------------------------------|-------------------------------------|
+| `docker-compose start <id>`         | to start a specific service         |
+| `docker-compose stop <id>`          | to stop a specific service          |
+| `docker-compose restart <id>`       | to restart a specific service       |
+| `docker-compose pause <id>`         | Pause a specific service            |
+| `docker-compose unpause <id>`       | Unpause a paused service            |
+| `docker-compose images`             | to get all images managed by compose file |
+| `docker-compose ps -a`              | to get all containers               |
+
+| Command                              | Description                                                |
+|--------------------------------------|------------------------------------------------------------|
+| `docker-compose logs <id>`          | to get logs for specific service                           |
+| `docker-compose scale <id>=<10>`    | to create 10 containers of <id>                            |
+| `docker-compose top`                | to get all processes managed by containers on compose file |
+| `docker-compose -h`                 | to get all commands of docker-compose                      |
