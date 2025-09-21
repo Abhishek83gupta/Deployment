@@ -106,29 +106,28 @@
 
 | Command                         | Description                      |
 |---------------------------------|----------------------------------|
-| `docker-compose up -d`         | to start all services            |
-| `docker-compose up -d --build` | to forcefully build images again |
-| `docker-compose down`          | to stop all services             |
-| `docker-compose down --rmi`    | to stop and remove images too    |
-| `docker-compose start`         | to start all services            |
-| `docker-compose stop`          | to stop all services             |
-| `docker-compose restart`       | to restart all services          |
-| `docker-compose logs`          | to get all logs                  |
+| `docker-compose up -d`          | to start all services |
+| `docker-compose up -d --build`  | -------- force fully building images again |
+| `docker-compose down`           |  to stop all services |
+| `docker-compose down --rmi/--remove all` | ------ and remove images too |
 
+| Command                         | Description                      |
+|---------------------------------|----------------------------------|
+| `docker-compose start`          | to start all services |
+| `docker-compose stop`           | to stop ------------- |
+| `docker-compose restart`        | to restart ----------- |
+| `docker-compose start <id>`     | to start a specific service |
+| `docker-compose stop <id>`      | to stop a --------------- |
+| `docker-compose restart <id>`   | to restart a -------------- |
+| `docker-compose pause <id>`     | Pause a specific service |
+| `docker-compose unpause <id>`   | Unpause a paused service |
 
-| Command                              | Description                         |
-|--------------------------------------|-------------------------------------|
-| `docker-compose start <id>`         | to start a specific service         |
-| `docker-compose stop <id>`          | to stop a specific service          |
-| `docker-compose restart <id>`       | to restart a specific service       |
-| `docker-compose pause <id>`         | Pause a specific service            |
-| `docker-compose unpause <id>`       | Unpause a paused service            |
-| `docker-compose images`             | to get all images managed by compose file |
-| `docker-compose ps -a`              | to get all containers               |
-
-| Command                              | Description                                                |
-|--------------------------------------|------------------------------------------------------------|
-| `docker-compose logs <id>`          | to get logs for specific service                           |
-| `docker-compose scale <id>=<10>`    | to create 10 containers of <id>                            |
-| `docker-compose top`                | to get all processes managed by containers on compose file |
-| `docker-compose -h`                 | to get all commands of docker-compose                      |
+| Command                         | Description                      |
+|---------------------------------|----------------------------------|
+| `docker-compose images`         | to get all image managed by compose file |
+| `docker-compose ps -a`          | to get all container ------------------- |
+| `docker-compose logs`           | to get all logs ------------------------ |
+| `docker-compose logs <id>`      | to get logs for specific service |
+| `docker-compose scale dth=10`  | to create 10 container of dth service
+| `docker-compose top`            | to get all process managed by containers on compose file |
+| `docker-compose -h`             | to get all commands of docker-compose |
