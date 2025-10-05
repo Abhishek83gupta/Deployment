@@ -25,7 +25,7 @@ services:
     build: ./Frontend
     env_file: ./Frontend/.env.local
     ports:
-      - 80:5173
+      - 80:80
     depends_on:
       - backend
     networks:

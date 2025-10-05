@@ -39,7 +39,7 @@ services:
     build: ./Frontend
     env_file: ./Frontend/.env.local
     ports:
-      - "5173:5173"
+      - "80:80"
     networks:
       - app-network
     depends_on:
