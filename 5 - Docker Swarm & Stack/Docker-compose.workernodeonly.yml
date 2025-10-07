@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+
+  redis:
+    container_name: redis
+    image: redis:7.0.5-alpine
+    expose:
+      - "6379"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker                    
+
+  backend:
+    image: abhishek3104/backend_pickest
+    env_file: ./Backend/.env.local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - app-network  
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker      
+
+  frontend:
+    image: abhishek3104/frontend_pickest
+    env_file: ./Frontend/.env.local
+    ports:
+      - "80:80"
+    depends_on:
+      - backend  
+    networks:
+      - app-network
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker      
+
+networks:
+  app-network:
+    driver: overlay
