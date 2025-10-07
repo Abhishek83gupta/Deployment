@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  redis:
+    container_name: redis
+    image: redis:7.0.5-alpine
+    expose:
+      - "6379"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network      
+
+  backend:
+    image: yourusername/backend
+    env_file: ./Backend/.env.local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network  
+
+  frontend:
+    image: yourusername/frontend
+    env_file: ./Frontend/.env.local
+    ports:
+      - "80:80"
+    depends_on:
+      - backend  
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: overlay
