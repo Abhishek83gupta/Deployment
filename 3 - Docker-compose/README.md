@@ -50,7 +50,7 @@
   vim .env.local 
   ```
   Note : Change .env.local variables
-        VITE_API_URL = "http://localhost:3000"  --->  "http://<your ip-address>:3000"  
+        VITE_API_URL = "http://localhost:3000"  --->  "http://ip-address:3000"  
  
 
 ## b) Setting up the Frontend
@@ -75,7 +75,7 @@
   vim .env.local 
   ```
   Note : Change .env.local variables
-        CLIENT_URL = "http://localhost:5173"    --->  "http://<your ip-address>:5173"
+        CLIENT_URL = "http://localhost:5173"    --->  "http://ip-address:5173"
 
 ## b) Setting up docker-compose (In root directory)
 
