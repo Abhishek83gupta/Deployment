@@ -1,24 +1,28 @@
 # DevOps 3-Tier Application Deployment using Docker Compose on AWS EC2
 
 - Launch an EC2 Instance with (All traffic, Anywhere):
-  Note : You can also edit Inbound/Outbound rules further to open specific port.
+> Note : You can also edit Inbound/Outbound rules further to open specific port.
 
 - Connect your VM using any tools (e.g Mobaxterm)
-
 
   1. Set up hostname:  
    ```bash
    sudo -i
    hostnamectl set-hostname tier-3-app
-   apt-get update -y
    ```
   
-  2. Installation of Git & Docker:
+  2. Installation of Git, Docker, Docker-compose:
    ```bash
+   apt-get update -y
+   
    apt-get install git -y
-   apt-get install docker.io -y 
    git --version
+   
+   https://github.com/Abhishek83gupta/setups/blob/main/docker.sh
    docker --version
+   
+   https://github.com/Abhishek83gupta/setups/blob/main/ubuntu-docker-compose.sh
+   docker-compose --version
    ```
   
   3. Clone the repository:
@@ -37,7 +41,7 @@
 
   2. Creating Dockerfile
   ```bash
-  vim Dokerfile
+  vim Dockerfile
   ```
   
   3. Configure environment variables
@@ -50,8 +54,9 @@
   vim .env.local 
   ```
   Note : Change .env.local variables
-        VITE_API_URL = "http://localhost:3000"  --->  "http://ip-address:3000"  
- 
+          CLIENT_URL=http://localhost:5173  --->  CLIENT_URL=http://ip-address
+ - We are using Nginx for frontend that why no port is required (default port 80)       
+
 
 ## b) Setting up the Frontend
 
@@ -62,7 +67,7 @@
 
   2. Creating Dockerfile
   ```bash
-  vim Dokerfile
+  vim Dockerfile
   ```
   
   3. Configure environment variables
@@ -75,9 +80,9 @@
   vim .env.local 
   ```
   Note : Change .env.local variables
-        CLIENT_URL = "http://localhost:5173"    --->  "http://ip-address:5173"
+          VITE_API_URL=http://localhost:3000    --->  VITE_API_URL=http://ip-address:3000      
 
-## b) Setting up docker-compose (In root directory)
+## c) Setting up docker-compose (In root directory)
 
   1. Creating docker-compose.yml
   ```bash
@@ -100,7 +105,7 @@
 ## Trouble shooting :-
 
 1. If server get stuck on running compose commands then restart instance or you can use t2.medium as well
-
+2. Always check your ip-address in Incognito window (sometime not work in normal browser)
 
 ## Docker-compose commands :-
 
