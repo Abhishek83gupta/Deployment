@@ -5,39 +5,73 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db  
     networks:
       - app-network
-
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
   redis:
     container_name: redis
     image: redis:7.0.5-alpine
     expose:
       - "6379"
-    depends_on:
-      - mongodb
     networks:
-      - app-network      
-
+      - app-network 
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s        
+       
   backend:
-    image: yourusername/backend
+    image: abhishek3104/backend_pickest
     env_file: ./Backend/.env.local
     ports:
       - "3000:3000"
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app-network  
-
+    restart: unless-stopped  
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
   frontend:
-    image: yourusername/frontend
+    image: abhishek3104/frontend_pickest
     env_file: ./Frontend/.env.local
     ports:
       - "80:80"
     depends_on:
-      - backend  
+      backend:
+        condition: service_healthy
     networks:
       - app-network
+    restart: unless-stopped  
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
+volumes:
+  mongo-data:    
+ 
 networks:
   app-network:
-    driver: overlay
