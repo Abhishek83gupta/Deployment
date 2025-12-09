@@ -1,13 +1,23 @@
 version: "3.8"
+
 services:
   mongodb:
     container_name: mongo
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db  
     networks:
-      - app-network  
-
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
   redis:
     container_name: redis
     image: redis:7.0.5-alpine
@@ -17,11 +27,16 @@ services:
     # If you want to access Redis from host or outside, use ports instead of expose:
     # ports:
     #   - "6379:6379"
-    depends_on:
-      - mongodb
     networks:
-      - app-network  
-
+      - app-network 
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s        
+       
   backend:
     container_name: backend
     build: ./Backend
@@ -29,21 +44,41 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mongodb
-      - redis
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app-network  
-
+    restart: unless-stopped  
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
   frontend:
     container_name: frontend
     build: ./Frontend
     env_file: ./Frontend/.env.local
     ports:
       - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
     networks:
       - app-network
-    depends_on:
-      - backend        
+    restart: unless-stopped  
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
+volumes:
+  mongo-data:    
+ 
 networks:
-  app-network:
+  app-network:  
